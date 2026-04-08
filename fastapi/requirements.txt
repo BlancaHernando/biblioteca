@@ -1,0 +1,9 @@
+#aqui hemos añadido las librerias que vamos a usar
+pydantic>=2.0
+fastapi
+pandas
+uvicorn
+sqlalchemy
+pytest
+httpx
+
