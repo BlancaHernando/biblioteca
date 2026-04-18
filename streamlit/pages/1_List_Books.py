@@ -3,7 +3,7 @@ import requests
 
 st.set_page_config(page_title="Catálogo de Libros", page_icon="📖")
 
-API_URL = "http://127.0.0.1:8007"
+API_URL = "http://fastapi:8000"
 
 st.markdown("# Catálogo de Libros")
 st.write("Listado de libros disponibles en la biblioteca.")
