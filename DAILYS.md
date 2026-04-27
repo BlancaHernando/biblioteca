@@ -91,4 +91,3 @@
 - **¿Qué hice?** Empezamos a escribir la sección de SOLID en el README. Redactamos los principios SRP y OCP explicando cómo los hemos aplicado con ejemplos del propio código del proyecto.
 - **¿Algún problema?** No tuvimos problemas, nos repartimos los principios para que fuera más rápido.
 ---
-### 30/04/2026
