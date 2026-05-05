@@ -36,6 +36,12 @@ Este principio dice que cada fichero debe tener una sola responsabilidad. En nue
 
 Así, si hay un problema con los libros, solo tenemos que tocar `libros.py` sin afectar al resto del código.
 
+### OCP - Open/Closed Principle
+Este principio dice que si queremos añadir algo nuevo al proyecto, no hace falta tocar el código que ya funciona. En nuestro proyecto lo hemos aplicado así:
+- Si quisiéramos añadir una nueva funcionalidad como reservas, solo tendríamos que crear un fichero nuevo routers/reservas.py. No habría que modificar libros.py, usuarios.py ni prestamos.py.
+- Si quisiéramos añadir un nuevo error, solo hay que añadirlo en exceptions.py sin tocar nada más.
+Esto es muy útil porque si tocamos el código que ya funciona, podemos romper o hacer que algo deje de funcionar sin querer y sin darnos cuenta.
+
 ## Metodología: eXtreme Programming (XP)
 
 Durante los 3 sprints de la práctica, es OBLIGATORIO:
