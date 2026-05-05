@@ -60,6 +60,13 @@ En nuestro proyecto lo hemos aplicado en schemas.py. Por ejemplo con los usuario
 
 Así cada schema tiene únicamente los campos que necesita en cada momento, sin campos de más.
 
+### DIP - Dependency Inversion Principle
+Este principio dice que el código no debe crear sus propias dependencias, sino recibirlas desde fuera.
+En nuestro proyecto lo hemos aplicado con la base de datos. Los endpoints no crean la conexión a la base de datos ellos solos, sino que FastAPI se la pasa automáticamente a través de Depends(get_db):
+- En routers/libros.py, el endpoint recibe la base de datos así: def get_libros(db: Session = Depends(get_db))
+- El endpoint no sabe cómo se crea la base de datos, solo la usa.
+En los tests no queremos usar la base de datos real porque podría llenarse de datos de prueba. Entonces le decimos a FastAPI que use una base de datos de mentira que solo existe mientras se ejecutan los tests. Esto es posible gracias a que usamos Depends, ya que nos permite cambiarla fácilmente sin tocar nada del código.
+
 ## Metodología: eXtreme Programming (XP)
 
 Durante los 3 sprints de la práctica, es OBLIGATORIO:
