@@ -50,6 +50,16 @@ En nuestro proyecto lo hemos aplicado en exceptions.py. Hemos creado tres clases
 - UsuarioNoEncontrado → se lanza cuando se busca un usuario que no existe
 Como las tres heredan de HTTPException, FastAPI las reconoce y las maneja igual que cualquier otro error. 
 
+### ISP - Interface Segregation Principle
+Este principio dice que es mejor tener varios schemas pequeños con solo lo necesario, que uno grande con todo.
+
+En nuestro proyecto lo hemos aplicado en schemas.py. Por ejemplo con los usuarios tenemos dos schemas separados:
+
+- UsuarioCreate solo tiene nombre y email — es el que se usa cuando se crea un usuario. No tiene id porque en ese momento todavía no existe, lo genera la base de datos automáticamente.
+- UsuarioSchema tiene nombre, email e id — es el que se usa cuando la API devuelve un usuario, porque ahí ya sí existe el id.
+
+Así cada schema tiene únicamente los campos que necesita en cada momento, sin campos de más.
+
 ## Metodología: eXtreme Programming (XP)
 
 Durante los 3 sprints de la práctica, es OBLIGATORIO:
