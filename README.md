@@ -42,6 +42,14 @@ Este principio dice que si queremos añadir algo nuevo al proyecto, no hace falt
 - Si quisiéramos añadir un nuevo error, solo hay que añadirlo en exceptions.py sin tocar nada más.
 Esto es muy útil porque si tocamos el código que ya funciona, podemos romper o hacer que algo deje de funcionar sin querer y sin darnos cuenta.
 
+### LSP - Liskov Substitution Principle
+Este principio dice que si una clase hereda de otra, tiene que comportarse exactamente igual que ella. Es decir, puedes sustituir la clase madre por la clase hija y todo sigue funcionando igual.
+En nuestro proyecto lo hemos aplicado en exceptions.py. Hemos creado tres clases de error propias que heredan de HTTPException que es la clase de error de FastAPI:
+- LibroNoEncontrado → se lanza cuando se busca un libro que no existe
+- LibroNoDisponible → se lanza cuando se intenta pedir un libro que ya está prestado
+- UsuarioNoEncontrado → se lanza cuando se busca un usuario que no existe
+Como las tres heredan de HTTPException, FastAPI las reconoce y las maneja igual que cualquier otro error. 
+
 ## Metodología: eXtreme Programming (XP)
 
 Durante los 3 sprints de la práctica, es OBLIGATORIO:
