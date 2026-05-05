@@ -8,7 +8,7 @@ from schemas import LibroSchema
 from services import LibroService
 from decorators import log_tiempo
 
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/libros", tags=["libros"])
 
@@ -18,7 +18,9 @@ router = APIRouter(prefix="/libros", tags=["libros"])
 def get_libros(db: Session = Depends(get_db)):
     logger.info("Obteniendo el listado completo de libros...")
     servicio = LibroService(db)
-    return servicio.todos()
+    libros = servicio.todos()
+    logger.info(f"Se han encontrado {len(libros)} libros en total.")
+    return libros
 
 
 @router.get("/disponibles/", response_model=List[LibroSchema])
