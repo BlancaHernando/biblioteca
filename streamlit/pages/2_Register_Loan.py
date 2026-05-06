@@ -10,22 +10,23 @@ API_URL = "http://fastapi:8000"
 
 with st.form("loan_form"):
     libro_id = st.number_input("ID del Libro", min_value=1, step=1)
-    usuario_id = st.text_input("ID de Usuario")
+    usuario_id = st.number_input("ID de Usuario", min_value=1, step=1)
     submitted = st.form_submit_button("Realizar Préstamo")
 
     if submitted:
-        st.info(f"Intentando prestar libro {libro_id} al usuario {usuario_id}...")
-        
         try:
-            response = requests.post(f"{API_URL}/prestamos/?libro_id={libro_id}")
-            
-            if response.status_code == 200:
-                st.success("Préstamo registrado (simulado).")
+            response = requests.post(
+                f"{API_URL}/prestamos/",
+                json={"libro_id": int(libro_id), "usuario_id": int(usuario_id)}
+            )
+            if response.status_code == 201:
+                st.success("¡Préstamo registrado correctamente!")
                 st.json(response.json())
+            elif response.status_code == 400:
+                st.error("Error: el libro no está disponible.")
+            elif response.status_code == 404:
+                st.error("Error: el libro o el usuario no existe.")
             else:
-                st.error("Error al registrar préstamo.")
+                st.error(f"Error al registrar el préstamo: {response.status_code}")
         except Exception as e:
-            st.error(f"Error de conexión: {e}")
-
-st.markdown("---")
-st.warning("⚠️ Este formulario es un esqueleto. Falta validación y gestión de errores real.")
+            st.error(f"Error de conexión con el servidor: {e}")
