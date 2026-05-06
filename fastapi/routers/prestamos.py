@@ -8,7 +8,7 @@ from database import get_db
 from models import Libro, Usuario, Prestamo
 from schemas import PrestamoSchema, PrestamoCreate
 from exceptions import LibroNoEncontrado, LibroNoDisponible, UsuarioNoEncontrado
-
+from decorators import log_tiempo
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +16,7 @@ router = APIRouter(prefix="/prestamos", tags=["préstamos"])
 
 
 @router.get("/", response_model=List[PrestamoSchema])
+@log_tiempo
 def get_prestamos(db: Session = Depends(get_db)):
     logger.info("Obteniendo el listado completo de préstamos...")
     prestamos = db.query(Prestamo).all()
@@ -24,6 +25,7 @@ def get_prestamos(db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=PrestamoSchema, status_code=201)
+@log_tiempo
 def create_prestamo(payload: PrestamoCreate, db: Session = Depends(get_db)):
     logger.info(f"Intentando crear préstamo: libro {payload.libro_id}, usuario {payload.usuario_id}")
 
@@ -54,7 +56,9 @@ def create_prestamo(payload: PrestamoCreate, db: Session = Depends(get_db)):
     logger.info(f"Préstamo creado con id: {prestamo.id}")
     return prestamo
 
+
 @router.put("/{prestamo_id}/devolver/", response_model=PrestamoSchema)
+@log_tiempo
 def devolver_libro(prestamo_id: int, db: Session = Depends(get_db)):
     prestamo = db.query(Prestamo).filter(Prestamo.id == prestamo_id).first()
     if not prestamo:

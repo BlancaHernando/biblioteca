@@ -7,6 +7,7 @@ from database import get_db
 from models import Usuario
 from schemas import UsuarioSchema, UsuarioCreate
 from exceptions import EmailDuplicado, UsuarioNoEncontrado
+from decorators import log_tiempo
 
 logger = logging.getLogger(__name__)
 
@@ -14,12 +15,14 @@ router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
 
 @router.get("/", response_model=List[UsuarioSchema])
+@log_tiempo
 def get_usuarios(db: Session = Depends(get_db)):
     logger.info("Obteniendo el listado de usuarios registrados...")
     return db.query(Usuario).all()
 
 
 @router.post("/", response_model=UsuarioSchema, status_code=201)
+@log_tiempo
 def create_usuario(payload: UsuarioCreate, db: Session = Depends(get_db)):
     logger.info(f"Creando nuevo usuario con email: {payload.email}")
 
